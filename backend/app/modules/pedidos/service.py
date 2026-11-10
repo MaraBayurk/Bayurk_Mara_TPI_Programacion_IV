@@ -217,32 +217,6 @@ class PedidoService:
 
             return PedidoRead.model_validate(pedido)
 
-
-    def count_pedidos_hoy(self) -> int:
-        from datetime import date, datetime, time
-
-        inicio = datetime.combine(date.today(), time.min)
-        fin = datetime.combine(date.today(), time.max)
-
-        consulta = (
-            select(func.count())
-            .select_from(Pedido)
-            .where(
-                Pedido.created_at >= inicio,
-                Pedido.created_at <= fin,
-            )
-        )
-
-        return self.session.exec(consulta).one()
-
-
-    def ingresos_entregados(self) -> float:
-        consulta = (
-            select(func.coalesce(func.sum(Pedido.total), 0))
-            .where(Pedido.estado == "ENTREGADO")
-        )
-
-        return float(self.session.exec(consulta).one())
     
     def resumen(self) -> ResumenPedidos:
         with self.uow as uow:

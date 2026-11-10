@@ -57,8 +57,8 @@ def login(
         key="access_token",
         value=token,
         httponly=True,
-        secure=False,
-        samesite="lax",
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
     )
 
@@ -70,12 +70,11 @@ def logout(response: Response):
     response.delete_cookie(
         key="access_token",
         httponly=True,
-        secure=False,
-        samesite="lax"
+        secure=settings.COOKIE_SECURE,
+        samesite=settings.COOKIE_SAMESITE
     )
 
     return TokenResponse(message="Sesión cerrada correctamente")
-
 
 @router.get("/me", response_model=UsuarioRead)
 def get_me(usuario: Usuario = Depends(get_current_user)):

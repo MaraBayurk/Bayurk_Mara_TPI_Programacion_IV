@@ -4,15 +4,14 @@ from datetime import timedelta
 from app.core.config import settings
 from app.core.security import create_access_token
 from app.modules.usuarios.models import Usuario
-from app.modules.usuarios.schemas import UsuarioCreate
+from app.modules.usuarios.schemas import UsuarioCreate, UsuarioRead
 from app.modules.usuarios.service import UsuarioService
-
 
 class AuthService:
     def __init__(self):
         self.usuarios = UsuarioService()
-
-    def registrar(self, datos: UsuarioCreate) -> Usuario:
+        
+    def registrar(self, datos: UsuarioCreate) -> UsuarioRead:
         return self.usuarios.registrar(datos)
 
     def iniciar_sesion(

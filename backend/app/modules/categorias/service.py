@@ -49,6 +49,7 @@ class CategoriaService:
 
             return CategoriaRead.model_validate(categoria)
 
+
     def actualizar(
         self,
         categoria_id: int,
@@ -69,8 +70,12 @@ class CategoriaService:
                 if cambios["nombre"] is None:
                     raise HTTPException(
                         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                        detail="El nombre de la categoría no puede ser nulo",
+                        detail="El nombre de la categoría no puede ser nulo"
                     )
+
+                existente = uow.categorias.get_by_nombre(
+                    cambios["nombre"]
+                )
 
                 if existente and existente.id != categoria_id:
                     raise HTTPException(
