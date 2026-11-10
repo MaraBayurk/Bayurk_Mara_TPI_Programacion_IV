@@ -1,4 +1,6 @@
 
+from collections.abc import Callable
+
 from fastapi import Cookie, Depends, HTTPException, status
 
 from app.core.security import decode_access_token
@@ -30,19 +32,34 @@ def get_current_user(
     with UsuarioUnitOfWork() as uow:
         usuario = uow.usuarios.get_by_id(usuario_id)
 
-        if not usuario or usuario.disabled:
+        if not usuario:
             raise credentials_exception
 
         return usuario
 
 
-def get_current_admin_user(
+def get_current_active_user(
     usuario: Usuario = Depends(get_current_user)
 ) -> Usuario:
-    if usuario.role != "admin":
+    if usuario.disabled:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="No tenés permisos para realizar esta acción"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cuenta de usuario desactivada"
         )
 
     return usuario
+
+
+def require_role(roles: list[str]) -> Callable:
+    def role_checker(
+        usuario: Usuario = Depends(get_current_active_user)
+    ) -> Usuario:
+        if usuario.role not in roles:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="No tenés permisos para realizar esta acción"
+            )
+
+        return usuario
+
+    return role_checker
