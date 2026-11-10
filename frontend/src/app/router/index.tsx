@@ -14,10 +14,8 @@ import OrderSummaryPage from '../../features/orders/pages/OrderSummaryPage'
 import AdminCategoriesPage from '../../features/categories/pages/AdminCategoriesPage'
 import AdminProductsPage from '../../features/products/pages/AdminProductsPage'
 import AdminOrdersPage from '../../features/orders/pages/AdminOrdersPage'
+import AdminUsersPage from '../../features/users/pages/AdminUsersPage'
 
-function AdminUsersPage() {
-  return <h1>Administrar usuarios</h1>
-}
 
 function UnauthorizedPage() {
   return (

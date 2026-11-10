@@ -151,6 +151,7 @@ export function Header() {
                       Pedidos
                     </Link>
                   )}
+
                   {user.role === "admin" && (
                     <Link
                       to="/admin/resumen"
@@ -158,6 +159,15 @@ export function Header() {
                       className="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50"
                     >
                       Panel de administración
+                    </Link>
+                  )}
+                  {user.role === "admin" && (
+                    <Link
+                      to="/admin/usuarios"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50"
+                    >
+                      Usuarios
                     </Link>
                   )}
 
