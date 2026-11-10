@@ -6,6 +6,7 @@ import {
   logoutRequest,
 } from '../features/auth/api/auth'
 import type { AuthUser } from '../features/auth/types/auth.types'
+import { setUnauthorizedHandler } from '../shared/services/api'
 
 interface AuthState {
   user: AuthUser | null
@@ -54,3 +55,7 @@ export const useAuthStore = create<AuthState>()(
     },
   ),
 )
+
+setUnauthorizedHandler(() => {
+  useAuthStore.getState().clearSession()
+})

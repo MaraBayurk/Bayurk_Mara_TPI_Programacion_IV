@@ -222,6 +222,8 @@ export function CatalogPage() {
                             producto_id: product.id,
                             nombre: product.nombre,
                             precio_unitario: product.precio_base,
+                            stock: product.stock,
+                            disponible: product.disponible,
                           })
                         }
                         className="mt-4 w-full rounded-xl bg-gradient-to-r from-purple-600 to-violet-700 px-4 py-3 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:from-gray-300 disabled:to-gray-400"

@@ -1,23 +1,20 @@
-
-import { Link } from 'react-router-dom'
-import { useCartStore } from '../../../store/cartStore'
+import { Link } from "react-router-dom";
+import { useCartStore } from "../../../store/cartStore";
 
 const formatPrice = (price: number) =>
-  new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
+  new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
     maximumFractionDigits: 0,
-  }).format(price)
+  }).format(price);
 
 export function CartPage() {
-  const items = useCartStore((state) => state.items)
-  const quitar = useCartStore((state) => state.quitar)
-  const cambiarCantidad = useCartStore(
-    (state) => state.cambiarCantidad,
-  )
-  const total = useCartStore((state) => state.total)
+  const items = useCartStore((state) => state.items);
+  const quitar = useCartStore((state) => state.quitar);
+  const cambiarCantidad = useCartStore((state) => state.cambiarCantidad);
+  const total = useCartStore((state) => state.total);
 
-  const subtotal = total()
+  const subtotal = total();
 
   if (items.length === 0) {
     return (
@@ -30,8 +27,8 @@ export function CartPage() {
           </h1>
 
           <p className="mt-3 text-gray-500">
-            Todavía no agregaste productos. Explorá nuestro catálogo
-            y encontrá algo que te guste.
+            Todavía no agregaste productos. Explorá nuestro catálogo y encontrá
+            algo que te guste.
           </p>
 
           <Link
@@ -42,7 +39,7 @@ export function CartPage() {
           </Link>
         </section>
       </main>
-    )
+    );
   }
 
   return (
@@ -83,7 +80,8 @@ export function CartPage() {
                     </p>
 
                     <p className="mt-2 font-semibold text-[#581C87]">
-                      Subtotal: {formatPrice(item.precio_unitario * item.cantidad)}
+                      Subtotal:{" "}
+                      {formatPrice(item.precio_unitario * item.cantidad)}
                     </p>
                   </div>
 
@@ -92,16 +90,16 @@ export function CartPage() {
                       <button
                         type="button"
                         onClick={() =>
-                          cambiarCantidad(
-                            item.producto_id,
-                            item.cantidad - 1,
-                          )
+                          cambiarCantidad(item.producto_id, item.cantidad + 1)
                         }
-                        disabled={item.cantidad <= 1}
-                        aria-label={`Disminuir cantidad de ${item.nombre}`}
+                        disabled={
+                          item.stock !== undefined &&
+                          item.cantidad >= item.stock
+                        }
+                        aria-label={`Aumentar cantidad de ${item.nombre}`}
                         className="px-3 py-2 text-lg font-semibold text-purple-700 transition hover:bg-purple-50 disabled:cursor-not-allowed disabled:opacity-30"
                       >
-                        −
+                        +
                       </button>
 
                       <span
@@ -114,10 +112,7 @@ export function CartPage() {
                       <button
                         type="button"
                         onClick={() =>
-                          cambiarCantidad(
-                            item.producto_id,
-                            item.cantidad + 1,
-                          )
+                          cambiarCantidad(item.producto_id, item.cantidad + 1)
                         }
                         aria-label={`Aumentar cantidad de ${item.nombre}`}
                         className="px-3 py-2 text-lg font-semibold text-purple-700 transition hover:bg-purple-50"
@@ -146,9 +141,7 @@ export function CartPage() {
 
             <div className="mt-6 flex justify-between text-gray-600">
               <span>Productos</span>
-              <span>
-                {items.reduce((sum, item) => sum + item.cantidad, 0)}
-              </span>
+              <span>{items.reduce((sum, item) => sum + item.cantidad, 0)}</span>
             </div>
 
             <div className="mt-4 flex justify-between text-gray-600">
@@ -173,5 +166,5 @@ export function CartPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }

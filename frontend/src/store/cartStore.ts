@@ -7,6 +7,8 @@ export interface CartItem {
   nombre: string
   precio_unitario: number
   cantidad: number
+  stock?: number
+  disponible?: boolean
 }
 
 interface CartState {
@@ -24,24 +26,50 @@ export const useCartStore = create<CartState>()(
       items: [],
 
       agregar: (producto) => {
+        if (producto.disponible === false) return
+
         const items = get().items
         const existente = items.find(
           (item) => item.producto_id === producto.producto_id,
         )
 
+        const stockMaximo = producto.stock
+
         if (existente) {
+          const stock = stockMaximo ?? existente.stock
+
+          if (
+            stock !== undefined &&
+            existente.cantidad >= stock
+          ) {
+            return
+          }
+
           set({
             items: items.map((item) =>
               item.producto_id === producto.producto_id
-                ? { ...item, cantidad: item.cantidad + 1 }
+                ? {
+                    ...item,
+                    ...producto,
+                    cantidad: item.cantidad + 1,
+                  }
                 : item,
             ),
           })
+
           return
         }
 
+        if (stockMaximo !== undefined && stockMaximo < 1) return
+
         set({
-          items: [...items, { ...producto, cantidad: 1 }],
+          items: [
+            ...items,
+            {
+              ...producto,
+              cantidad: 1,
+            },
+          ],
         })
       },
 
@@ -56,11 +84,18 @@ export const useCartStore = create<CartState>()(
         if (cantidad < 1) return
 
         set({
-          items: get().items.map((item) =>
-            item.producto_id === productoId
-              ? { ...item, cantidad }
-              : item,
-          ),
+          items: get().items.map((item) => {
+            if (item.producto_id !== productoId) return item
+
+            if (item.disponible === false) return item
+
+            const cantidadMaxima = item.stock ?? cantidad
+
+            return {
+              ...item,
+              cantidad: Math.min(cantidad, cantidadMaxima),
+            }
+          }),
         })
       },
 
