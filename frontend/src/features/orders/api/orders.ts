@@ -4,7 +4,9 @@ import type {
   Order,
   OrderCreate,
   OrdersPaginated,
+  OrderSummary
 } from '../types/order.types'
+
 
 export const createOrder = async (data: OrderCreate): Promise<Order> => {
   const response = await api.post<Order>('/pedidos', data)
@@ -29,5 +31,10 @@ export const getOrderById = async (id: number): Promise<Order> => {
 
 export const cancelOrder = async (id: number): Promise<Order> => {
   const response = await api.patch<Order>(`/pedidos/${id}/cancelar`)
+  return response.data
+}
+
+export const getOrderSummary = async (): Promise<OrderSummary> => {
+  const response = await api.get<OrderSummary>('/pedidos/resumen')
   return response.data
 }

@@ -1,20 +1,16 @@
 
-import {
-  createBrowserRouter,
-  Navigate,
-} from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
+
 import { ProtectedRoute } from './ProtectedRoute'
+import { AppLayout } from '../layouts/AppLayout'
+
 import { LoginPage } from '../../features/auth/pages/LoginPage'
 import { RegisterPage } from '../../features/auth/pages/RegisterPage'
 import { CatalogPage } from '../../features/products/pages/CatalogPage'
 import { CartPage } from '../../features/cart/pages/CartPage'
 import { CheckoutPage } from '../../features/orders/pages/CheckoutPage'
 import MyOrdersPage from '../../features/orders/pages/MyOrdersPage'
-
-
-function AdminSummaryPage() {
-  return <h1>Resumen de administración</h1>
-}
+import OrderSummaryPage from '../../features/orders/pages/OrderSummaryPage'
 
 function AdminCategoriesPage() {
   return <h1>Administrar categorías</h1>
@@ -49,10 +45,6 @@ function UnauthorizedPage() {
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <CatalogPage />,
-  },
-  {
     path: '/login',
     element: <LoginPage />,
   },
@@ -61,44 +53,53 @@ export const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: '/carrito',
-    element: <CartPage />,
-  },
-  {
-    element: <ProtectedRoute allowedRoles={['user', 'admin']} />,
+    element: <AppLayout />,
     children: [
       {
-        path: '/checkout',
-        element: <CheckoutPage />,
+        path: '/',
+        element: <CatalogPage />,
       },
       {
-        path: '/mis-pedidos',
-        element: <MyOrdersPage />,
-      },
-    ],
-  },
-  {
-    element: <ProtectedRoute allowedRoles={['admin']} />,
-    children: [
-      {
-        path: '/admin/resumen',
-        element: <AdminSummaryPage />,
+        path: '/carrito',
+        element: <CartPage />,
       },
       {
-        path: '/admin/categorias',
-        element: <AdminCategoriesPage />,
+        element: <ProtectedRoute allowedRoles={['user', 'admin']} />,
+        children: [
+          {
+            path: '/checkout',
+            element: <CheckoutPage />,
+          },
+          {
+            path: '/mis-pedidos',
+            element: <MyOrdersPage />,
+          },
+        ],
       },
       {
-        path: '/admin/productos',
-        element: <AdminProductsPage />,
-      },
-      {
-        path: '/admin/pedidos',
-        element: <AdminOrdersPage />,
-      },
-      {
-        path: '/admin/usuarios',
-        element: <AdminUsersPage />,
+        element: <ProtectedRoute allowedRoles={['admin']} />,
+        children: [
+          {
+            path: '/admin/resumen',
+            element: <OrderSummaryPage />,
+          },
+          {
+            path: '/admin/categorias',
+            element: <AdminCategoriesPage />,
+          },
+          {
+            path: '/admin/productos',
+            element: <AdminProductsPage />,
+          },
+          {
+            path: '/admin/pedidos',
+            element: <AdminOrdersPage />,
+          },
+          {
+            path: '/admin/usuarios',
+            element: <AdminUsersPage />,
+          },
+        ],
       },
     ],
   },

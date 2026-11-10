@@ -44,3 +44,12 @@ export interface OrdersPaginated {
   total: number
   items: Order[]
 }
+
+export interface OrderSummary {
+  pendientes: number
+  en_preparacion: number
+  entregados: number
+  cancelados: number
+  pedidos_hoy: number
+  ingresos_entregados: number
+}
