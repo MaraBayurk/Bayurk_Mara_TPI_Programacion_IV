@@ -143,7 +143,14 @@ export function Header() {
                       Productos
                     </Link>
                   )}
-
+                  {user?.role === "admin" && (
+                    <Link
+                      to="/admin/pedidos"
+                      className="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50"
+                    >
+                      Pedidos
+                    </Link>
+                  )}
                   {user.role === "admin" && (
                     <Link
                       to="/admin/resumen"

@@ -53,3 +53,8 @@ export interface OrderSummary {
   pedidos_hoy: number
   ingresos_entregados: number
 }
+
+
+export interface OrderStatusUpdate {
+  estado: OrderStatus
+}

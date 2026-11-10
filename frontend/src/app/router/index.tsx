@@ -13,11 +13,7 @@ import MyOrdersPage from '../../features/orders/pages/MyOrdersPage'
 import OrderSummaryPage from '../../features/orders/pages/OrderSummaryPage'
 import AdminCategoriesPage from '../../features/categories/pages/AdminCategoriesPage'
 import AdminProductsPage from '../../features/products/pages/AdminProductsPage'
-
-
-function AdminOrdersPage() {
-  return <h1>Administrar pedidos</h1>
-}
+import AdminOrdersPage from '../../features/orders/pages/AdminOrdersPage'
 
 function AdminUsersPage() {
   return <h1>Administrar usuarios</h1>

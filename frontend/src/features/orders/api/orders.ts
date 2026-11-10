@@ -4,9 +4,16 @@ import type {
   Order,
   OrderCreate,
   OrdersPaginated,
-  OrderSummary
+  OrderSummary,
+  OrderStatus,
+  OrderStatusUpdate,
 } from '../types/order.types'
 
+export interface OrderFilters {
+  skip?: number
+  limit?: number
+  estado?: OrderStatus
+}
 
 export const createOrder = async (data: OrderCreate): Promise<Order> => {
   const response = await api.post<Order>('/pedidos', data)
@@ -16,9 +23,10 @@ export const createOrder = async (data: OrderCreate): Promise<Order> => {
 export const getOrders = async (
   skip = 0,
   limit = 10,
+  estado?: OrderStatus,
 ): Promise<OrdersPaginated> => {
   const response = await api.get<OrdersPaginated>('/pedidos', {
-    params: { skip, limit },
+    params: { skip, limit, estado },
   })
 
   return response.data
@@ -31,6 +39,17 @@ export const getOrderById = async (id: number): Promise<Order> => {
 
 export const cancelOrder = async (id: number): Promise<Order> => {
   const response = await api.patch<Order>(`/pedidos/${id}/cancelar`)
+  return response.data
+}
+
+export const updateOrderStatus = async (
+  id: number,
+  data: OrderStatusUpdate,
+): Promise<Order> => {
+  const response = await api.patch<Order>(
+    `/pedidos/${id}/estado`,
+    data,
+  )
   return response.data
 }
 
