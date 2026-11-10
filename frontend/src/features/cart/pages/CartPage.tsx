@@ -90,16 +90,13 @@ export function CartPage() {
                       <button
                         type="button"
                         onClick={() =>
-                          cambiarCantidad(item.producto_id, item.cantidad + 1)
+                          cambiarCantidad(item.producto_id, item.cantidad - 1)
                         }
-                        disabled={
-                          item.stock !== undefined &&
-                          item.cantidad >= item.stock
-                        }
-                        aria-label={`Aumentar cantidad de ${item.nombre}`}
+                        disabled={item.cantidad <= 1}
+                        aria-label={`Disminuir cantidad de ${item.nombre}`}
                         className="px-3 py-2 text-lg font-semibold text-purple-700 transition hover:bg-purple-50 disabled:cursor-not-allowed disabled:opacity-30"
                       >
-                        +
+                        −
                       </button>
 
                       <span
@@ -114,8 +111,12 @@ export function CartPage() {
                         onClick={() =>
                           cambiarCantidad(item.producto_id, item.cantidad + 1)
                         }
+                        disabled={
+                          item.stock !== undefined &&
+                          item.cantidad >= item.stock
+                        }
                         aria-label={`Aumentar cantidad de ${item.nombre}`}
-                        className="px-3 py-2 text-lg font-semibold text-purple-700 transition hover:bg-purple-50"
+                        className="px-3 py-2 text-lg font-semibold text-purple-700 transition hover:bg-purple-50 disabled:cursor-not-allowed disabled:opacity-30"
                       >
                         +
                       </button>
