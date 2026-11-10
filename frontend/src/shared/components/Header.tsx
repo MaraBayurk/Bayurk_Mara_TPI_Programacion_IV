@@ -1,31 +1,27 @@
-
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../store/authStore'
-import { useCartStore } from '../../store/cartStore'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/authStore";
+import { useCartStore } from "../../store/cartStore";
 
 export function Header() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const navigate = useNavigate()
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const user = useAuthStore((state) => state.user)
-  const logout = useAuthStore((state) => state.logout)
-  const cartItems = useCartStore((state) => state.items)
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+  const cartItems = useCartStore((state) => state.items);
 
-  const cartCount = cartItems.reduce(
-    (total, item) => total + item.cantidad,
-    0,
-  )
+  const cartCount = cartItems.reduce((total, item) => total + item.cantidad, 0);
 
   const handleLogout = async () => {
-    setMenuOpen(false)
+    setMenuOpen(false);
 
     try {
-      await logout()
+      await logout();
     } finally {
-      navigate('/login', { replace: true })
+      navigate("/login", { replace: true });
     }
-  }
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-purple-100 bg-white/95 shadow-sm backdrop-blur">
@@ -49,7 +45,7 @@ export function Header() {
             Catálogo
           </Link>
 
-          {user?.role === 'user' && (
+          {user?.role === "user" && (
             <Link
               to="/mis-pedidos"
               className="text-sm font-medium text-gray-600 transition hover:text-purple-700"
@@ -58,7 +54,7 @@ export function Header() {
             </Link>
           )}
 
-          {user?.role === 'admin' && (
+          {user?.role === "admin" && (
             <Link
               to="/admin/resumen"
               className="text-sm font-medium text-gray-600 transition hover:text-purple-700"
@@ -102,7 +98,7 @@ export function Header() {
                     {user.full_name}
                   </span>
                   <span className="block text-xs text-gray-500">
-                    {user.role === 'admin' ? 'Administrador' : 'Cliente'}
+                    {user.role === "admin" ? "Administrador" : "Cliente"}
                   </span>
                 </span>
 
@@ -120,7 +116,7 @@ export function Header() {
                     </p>
                   </div>
 
-                  {user.role === 'user' && (
+                  {user.role === "user" && (
                     <Link
                       to="/mis-pedidos"
                       onClick={() => setMenuOpen(false)}
@@ -130,7 +126,16 @@ export function Header() {
                     </Link>
                   )}
 
-                  {user.role === 'admin' && (
+                  {user?.role === "admin" && (
+                    <Link
+                      to="/admin/categorias"
+                      className="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50"
+                    >
+                      Categorías
+                    </Link>
+                  )}
+
+                  {user.role === "admin" && (
                     <Link
                       to="/admin/resumen"
                       onClick={() => setMenuOpen(false)}
@@ -170,5 +175,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

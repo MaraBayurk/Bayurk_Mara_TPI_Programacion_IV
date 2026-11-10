@@ -5,3 +5,10 @@ export interface Category {
   descripcion: string
   activo: boolean
 }
+
+export interface CategoryCreate {
+  nombre: string
+  descripcion: string
+}
+
+export type CategoryUpdate = Partial<CategoryCreate>
