@@ -6,10 +6,8 @@ import {
 import { ProtectedRoute } from './ProtectedRoute'
 import { LoginPage } from '../../features/auth/pages/LoginPage'
 import { RegisterPage } from '../../features/auth/pages/RegisterPage'
+import { CatalogPage } from '../../features/products/pages/CatalogPage'
 
-function CatalogPage() {
-  return <h1>Catálogo de productos</h1>
-}
 
 function CartPage() {
   return <h1>Carrito</h1>
