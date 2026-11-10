@@ -43,7 +43,7 @@ class PedidoService:
             # Procesar cada producto
             for item in datos.items:
 
-                producto = uow.productos.get_by_id(item.producto_id)
+                producto = uow.productos.get_by_id_for_update(item.producto_id)
 
                 if not producto or not producto.activo:
                     raise HTTPException(

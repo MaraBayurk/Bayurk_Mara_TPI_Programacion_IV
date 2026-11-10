@@ -52,3 +52,12 @@ class ProductoRepository(BaseRepository[Producto]):
             Producto.categoria_id == categoria_id
         )
         return list(self.session.exec(statement).all())
+    
+    def get_by_id_for_update(self, producto_id: int) -> Producto | None:
+        statement = (
+            select(Producto)
+            .where(Producto.id == producto_id)
+            .with_for_update()
+        )
+
+        return self.session.exec(statement).first()
