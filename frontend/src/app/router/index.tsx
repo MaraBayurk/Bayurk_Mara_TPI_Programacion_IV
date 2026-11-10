@@ -7,19 +7,10 @@ import { ProtectedRoute } from './ProtectedRoute'
 import { LoginPage } from '../../features/auth/pages/LoginPage'
 import { RegisterPage } from '../../features/auth/pages/RegisterPage'
 import { CatalogPage } from '../../features/products/pages/CatalogPage'
+import { CartPage } from '../../features/cart/pages/CartPage'
+import { CheckoutPage } from '../../features/orders/pages/CheckoutPage'
+import MyOrdersPage from '../../features/orders/pages/MyOrdersPage'
 
-
-function CartPage() {
-  return <h1>Carrito</h1>
-}
-
-function CheckoutPage() {
-  return <h1>Confirmar pedido</h1>
-}
-
-function MyOrdersPage() {
-  return <h1>Mis pedidos</h1>
-}
 
 function AdminSummaryPage() {
   return <h1>Resumen de administración</h1>
