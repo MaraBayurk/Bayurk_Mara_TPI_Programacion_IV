@@ -29,4 +29,22 @@ export interface ProductFilters {
   limit: number
   search?: string
   categoria_id?: number
+  disponible?: boolean
+}
+
+export interface ProductCreate {
+  nombre: string
+  descripcion: string
+  precio_base: number
+  imagen_url: string
+  stock: number
+  disponible: boolean
+  categoria_id: number
+}
+
+export type ProductUpdate = Partial<ProductCreate>
+
+export interface ProductStockUpdate {
+  stock: number
+  disponible: boolean
 }

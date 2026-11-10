@@ -12,12 +12,8 @@ import { CheckoutPage } from '../../features/orders/pages/CheckoutPage'
 import MyOrdersPage from '../../features/orders/pages/MyOrdersPage'
 import OrderSummaryPage from '../../features/orders/pages/OrderSummaryPage'
 import AdminCategoriesPage from '../../features/categories/pages/AdminCategoriesPage'
+import AdminProductsPage from '../../features/products/pages/AdminProductsPage'
 
-
-
-function AdminProductsPage() {
-  return <h1>Administrar productos</h1>
-}
 
 function AdminOrdersPage() {
   return <h1>Administrar pedidos</h1>
