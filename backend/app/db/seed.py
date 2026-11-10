@@ -43,11 +43,11 @@ def seed():
             if not categoria:
                 uow.categorias.add(Categoria(**datos))
 
-    # Obtener IDs de categorías
+    # Obtener IDs de categorías activas
     with CategoriaUnitOfWork() as uow:
         categorias = {
             categoria.nombre: categoria.id
-            for categoria in uow.categorias.get_all()
+            for categoria in uow.categorias.get_all_activas()
         }
 
     # Productos
@@ -64,6 +64,14 @@ def seed():
 
     with ProductoUnitOfWork() as uow:
         for nombre, descripcion, precio, imagen, stock, categoria_nombre in productos_iniciales:
+
+            if categoria_nombre not in categorias:
+                print(
+                    f"Se omite {nombre}: "
+                    f"la categoría {categoria_nombre} no está activa."
+                )
+                continue
+
             existente = uow.session.exec(
                 select(Producto).where(Producto.nombre == nombre)
             ).first()
