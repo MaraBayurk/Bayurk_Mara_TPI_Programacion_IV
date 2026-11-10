@@ -19,7 +19,7 @@ class ProductoService:
     def listar(
         self,
         skip: int = 0,
-        limit: int = 10,
+        limit: int = 20,
         search: str | None = None,
         categoria_id: int | None = None,
         disponible: bool | None = None,

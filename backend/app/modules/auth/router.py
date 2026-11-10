@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.core.config import settings
-from app.core.deps import get_current_user
+from app.core.deps import get_current_active_user
 from app.modules.auth.schemas import TokenResponse
 from app.modules.auth.service import AuthService
 from app.modules.usuarios.models import Usuario
@@ -77,5 +77,7 @@ def logout(response: Response):
     return TokenResponse(message="Sesión cerrada correctamente")
 
 @router.get("/me", response_model=UsuarioRead)
-def get_me(usuario: Usuario = Depends(get_current_user)):
+def get_me(
+    usuario: Usuario = Depends(get_current_active_user)
+):
     return usuario

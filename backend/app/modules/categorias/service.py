@@ -98,4 +98,9 @@ class CategoriaService:
                     detail="Categoría no encontrada"
                 )
 
+            productos = uow.productos.get_by_categoria_id(categoria_id)
+
+            for producto in productos:
+                producto.activo = False
+
             categoria.activo = False

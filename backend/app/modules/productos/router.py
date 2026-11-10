@@ -25,7 +25,7 @@ def get_producto_service() -> ProductoService:
 @router.get("", response_model=ProductosPaginados)
 def listar_productos(
     skip: int = Query(default=0, ge=0),
-    limit: int = Query(default=10, ge=1),
+    limit: int = Query(default=20, ge=1, le=100),
     search: str | None = None,
     categoria_id: int | None = Query(default=None, ge=1),
     disponible: bool | None = None,

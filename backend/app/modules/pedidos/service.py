@@ -95,7 +95,7 @@ class PedidoService:
         usuario_id: int,
         es_admin: bool,
         skip: int = 0,
-        limit: int = 10,
+        limit: int = 20,
         estado: str | None = None,
     ):
         with self.uow as uow:

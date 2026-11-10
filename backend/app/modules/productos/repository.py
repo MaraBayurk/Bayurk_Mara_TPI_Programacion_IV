@@ -12,7 +12,7 @@ class ProductoRepository(BaseRepository[Producto]):
     def buscar(
         self,
         skip: int = 0,
-        limit: int = 10,
+        limit: int = 20,
         search: str | None = None,
         categoria_id: int | None = None,
         disponible: bool | None = None,
@@ -46,3 +46,9 @@ class ProductoRepository(BaseRepository[Producto]):
         total = self.session.exec(consulta_total).one()
 
         return productos, total
+    
+    def get_by_categoria_id(self, categoria_id: int) -> list[Producto]:
+        statement = select(Producto).where(
+            Producto.categoria_id == categoria_id
+        )
+        return list(self.session.exec(statement).all())

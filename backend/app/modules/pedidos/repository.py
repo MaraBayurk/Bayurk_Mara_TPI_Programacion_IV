@@ -14,7 +14,7 @@ class PedidoRepository(BaseRepository[Pedido]):
         self,
         usuario_id: int,
         skip: int = 0,
-        limit: int = 10,
+        limit: int = 20,
         estado: str | None = None,
     ) -> tuple[list[Pedido], int]:
 
@@ -45,7 +45,7 @@ class PedidoRepository(BaseRepository[Pedido]):
     def list_all(
         self,
         skip: int = 0,
-        limit: int = 10,
+        limit: int = 20,
         estado: str | None = None,
     ) -> tuple[list[Pedido], int]:
 

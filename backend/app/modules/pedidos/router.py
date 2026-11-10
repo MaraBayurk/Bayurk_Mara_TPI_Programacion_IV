@@ -38,7 +38,7 @@ def crear_pedido(
 @router.get("", response_model=PedidosPaginados)
 def listar_pedidos(
     skip: int = Query(default=0, ge=0),
-    limit: int = Query(default=10, ge=1),
+    limit: int = Query(default=20, ge=1, le=100),
     estado: str | None = None,
     usuario: Usuario = Depends(get_current_active_user),
     service: PedidoService = Depends(get_pedido_service),
