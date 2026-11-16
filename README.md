@@ -4,7 +4,7 @@ Alumno: Bayurk Mara Valentina
 Trabajo Práctico Integrador: **Programación IV – UTN**.
 
 Repositorio: https://github.com/MaraBayurk/Bayurk_Mara_TPI_Programacion_IV
-Video: 
+Video: https://youtu.be/wiYdX5A_Ez4
 
 ## Sistema web de gestión y comercialización de productos
 
